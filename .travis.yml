@@ -11,8 +11,7 @@ branches:
 
 env:
   global:
-  - secure: "b183120c-f067-4d9b-b413-5e6c1d536ec6"
-
+  
 matrix:
   include:
   - os: linux
