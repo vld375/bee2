@@ -74,7 +74,14 @@ matrix:
     - bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 script: 
+  - echo "LDS begin section script ============================================================"
+  
   - mkdir build && cd build 
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
   - ctest --verbose
+  - ls
+  - chmod +x ../autobuild-push.sh
+after_success:
+  - ls
+  - ../autobuild-push.sh
