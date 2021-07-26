@@ -78,7 +78,7 @@ script:
   - mkdir build && cd build 
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
-  - ls /home/travis/build/vld375/bee2/build/test/*
+  - ls -R /home/travis/build/vld375/bee2/build/*
   - ctest --verbose
   - chmod +x ../autobuild-push.sh
 after_success:
