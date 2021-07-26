@@ -6,7 +6,7 @@ git clone https://github.com/user/repo.git --branch autobuild --single-branch re
 cd repo_autobuild
 
 # Copy newly created APK into the target directory
-mv ../repo/app/build/outputs/apk/snapshot.apk ./autobuild
+mv ./* ./autobuild
 
 # Setup git for commit and push
 git config --global user.email "travis@travis-ci.org"
