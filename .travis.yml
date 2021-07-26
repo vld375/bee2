@@ -82,7 +82,7 @@ script:
   - cd ..
   - mkdir vld-build
   - cd vld-build
-  - cp /home/travis/build/vld375/bee2/build/src/be* .
+  - cp /home/travis/build/vld375/bee2/build/src/lib* .
   - cd ..
   - ls -R ./vld-build/*
   - git commit --message "vld-commit"
