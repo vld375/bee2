@@ -4,7 +4,7 @@ Credits
 Developement lead
 -----------------
 
-- Sergey Agievich [agievich@{bsu.by|gmail.com}] 
+- Sergey Agievich [vld375@gmail.com] 
 
 Authors
 -------
