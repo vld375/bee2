@@ -74,11 +74,11 @@ matrix:
     - bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 script: 
-  - ls /home/travis/build/vld375/bee2/*
+  - ls  -g /home/travis/build/vld375/bee2/build/src/*
   - mkdir build && cd build 
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
-  
+  - git branch -a
  # - cd ..
  # - git clone https://github.com/user/repo.git --branch autobuild --single-branch repo_autobuild
  # - cd repo_autobuild
@@ -111,7 +111,8 @@ script:
   - ls -R ./vld-build/*
   - git add ./vld-build/*
   - git commit --message "vld-commit"
-  - git push 
+  - git push origin-master
+  - git push origin master
   - ctest --verbose
   
  
