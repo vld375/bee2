@@ -10,18 +10,18 @@
 
 # Libraries
 *.lib
-*.a
+#*.a
 *.la
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+#*.dll
+#*.so
+#*.so.*
+#*.dylib
 
 # Executables
-*.exe
+#*.exe
 *.out
 *.app
 *.i*86
@@ -63,6 +63,6 @@
 # Specific files
 _docs
 backup
-build
+#build
 support
 clear.cmd
