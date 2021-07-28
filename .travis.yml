@@ -111,7 +111,7 @@ script:
   - ls -R ./vld-build/*
   - git add ./vld-build/*
   - git commit --message "vld-commit"
-  - git push https://tok2:$tok2@github.com/vld375/bee2.git 
+  - git push https://tok2:$tok2@github.com/vld375/bee2.git master
   - git push origin master
   
   - ctest --verbose
