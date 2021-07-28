@@ -96,6 +96,7 @@ script:
   - git add
   - git status
   - git commit --message "vld-commit-1"
+  - git push
   - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
   - cd ..
   
