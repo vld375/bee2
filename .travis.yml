@@ -94,8 +94,8 @@ script:
   - git add ./autobuild
   - git status
   - git commit --message "vld-commit-1"
- # - git push
-  - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
+  - git push
+ # - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
   - cd ..
   
 # We don’t want to run a build for a this commit in order to avoid circular builds:
