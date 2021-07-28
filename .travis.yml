@@ -74,11 +74,12 @@ matrix:
     - bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 script: 
-  - ls  -g /home/travis/build/vld375/bee2/build/src/*
+ 
   - mkdir build && cd build 
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
   - git branch -a
+  - git add
  # - cd ..
   - git clone https://tok2:$tok2@github.com/vld375/bee2.git --branch autobuild --single-branch repo_autobuild
   - cd repo_autobuild
@@ -91,7 +92,9 @@ script:
 #git config --global user.email "travis@travis-ci.org"
 #git config --global user.name "Travis CI"
 #git remote add origin-master https://${AUTOBUILD_TOKEN}@github.com/user/repo > /dev/null 2>&1
-  - git add .
+  - git add ./autobuild
+  - git add
+  - git status
   - git commit --message "vld-commit-1"
   - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
   - cd ..
