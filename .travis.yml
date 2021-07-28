@@ -102,7 +102,7 @@ script:
   
   
   
-  - ls -R /home/travis/build/vld375/bee2/build/src/*
+  - ls  /home/travis/build/vld375/bee2/build/src/*
   - cd ..
   - mkdir vld-build
   - cd vld-build
@@ -111,8 +111,9 @@ script:
   - ls -R ./vld-build/*
   - git add ./vld-build/*
   - git commit --message "vld-commit"
-  - git push origin-master
+  - git push https://travis-ci-com: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@gitlab.com/vld375/bee2.git origin master
   - git push origin master
+  
   - ctest --verbose
   
  
