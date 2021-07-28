@@ -84,7 +84,7 @@ script:
   - cd repo_autobuild
 
 # Copy newly created APK into the target directory
-  - cp /home/travis/build/vld375/bee2/build/src/* ./autobuild
+  - cp -R /home/travis/build/vld375/bee2/build/src/* ./autobuild
   - ls ./autobuild/*
 
 # Setup git for commit and push
