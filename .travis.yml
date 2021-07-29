@@ -1,4 +1,5 @@
  # Travis-CI Build for Bee2 (see travis-ci.org for details)
+
 language: c
 
 #branches:
