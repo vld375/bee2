@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12)
 project(BEE2 C)
 
 set(BEE2_VERSION_MAJOR "2")
 set(BEE2_VERSION_MINOR "1")
 set(BEE2_VERSION_PATCH "0")
-set(BEE2_VERSION 
+set(BEE2_VERSION
   "${BEE2_VERSION_MAJOR}.${BEE2_VERSION_MINOR}.${BEE2_VERSION_PATCH}")
 
 option(BUILD_SHARED_LIBS "Build shared libraries." ON)
@@ -24,12 +24,12 @@ string(REGEX MATCH "Clang" CMAKE_COMPILER_IS_CLANG "${CMAKE_C_COMPILER_ID}")
 
 if(CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE}
-      CACHE STRING 
+      CACHE STRING
       "Choose the type of build: Release Debug Coverage ASan ASanDbg MemSan MemSanDbg Check"
       FORCE)
 else()
   set(CMAKE_BUILD_TYPE Release
-      CACHE STRING 
+      CACHE STRING
       "Choose the type of build: Release Debug Coverage ASan ASanDbg MemSan MemSanDbg Check"
       FORCE)
 endif()
@@ -54,7 +54,7 @@ if (BASH_PLATFORM)
     set(BASH_NEON ON BOOL)
     add_definitions(-DBASH_NEON)
   elseif(NOT ${BASH_PLATFORM} STREQUAL BASH_64)
-    message(WARNING "Unknown BASH_PLATFORM (${BASH_PLATFORM}). This option will be ignored") 
+    message(WARNING "Unknown BASH_PLATFORM (${BASH_PLATFORM}). This option will be ignored")
     unset(BASH_PLATFORM CACHE)
   endif()
 endif()

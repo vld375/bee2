@@ -1,12 +1,12 @@
-# Travis-CI Build for Bee2 (see travis-ci.org for details)
-
+ # Travis-CI Build for Bee2 (see travis-ci.org for details)
 language: c
-branches:
-  only:
-  - master
 
-env:
-  global:
+#branches:
+#only:
+# - master
+
+#env:
+#global:
 
 matrix:
   include:
@@ -129,6 +129,6 @@ script:
 #- chmod +x ../autobuild-push.sh
 
 after_success:
- - echo " ===============================  after_success in the end =============================== "
+- echo " ===============================  after_success in the end =============================== "
 - ls *
 - ./autobuild-push.sh
