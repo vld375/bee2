@@ -63,6 +63,6 @@
 # Specific files
 _docs
 backup
-#build
+build
 support
 clear.cmd
