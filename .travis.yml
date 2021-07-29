@@ -4,7 +4,6 @@
 # - https://raw.githubusercontent.com/mmcloughlin/meow/871e50784daff1c9ec5ef66fe3d8fda6bbcd42cf/.travis.yml
 
 language: c 
-
 branches:
   only:
   - master
