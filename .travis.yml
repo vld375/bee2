@@ -1,19 +1,16 @@
 # Travis-CI Build for Bee2 (see travis-ci.org for details)
-#
-# Credits: 
-# - https://raw.githubusercontent.com/mmcloughlin/meow/871e50784daff1c9ec5ef66fe3d8fda6bbcd42cf/.travis.yml
 
-language: c 
+language: c
 branches:
   only:
   - master
 
 env:
   global:
-  
+
 matrix:
   include:
-  
+
   #1
   - os: linux
     compiler: gcc
@@ -26,40 +23,40 @@ matrix:
     script:
     - echo " ===============================  The script linux 1 =============================== "
     - curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true
-  
-  #2  
+
+  #2
   - os: linux
     compiler: gcc
     env: BUILD_TYPE="Release" BUILD_FAST="ON"  BASH_PLATFORM="BASH_64"
-  
-  #3  
+
+  #3
   - os: osx
     compiler: clang
     env: BUILD_TYPE="Release" BUILD_FAST="OFF" BASH_PLATFORM="BASH_32"
-  
-  #4  
+
+  #4
   - os: linux
     compiler: gcc
-    env: BUILD_TYPE="MemSan" BUILD_FAST="ON" BASH_PLATFORM="BASH_AVX2" 
-  
+    env: BUILD_TYPE="MemSan" BUILD_FAST="ON" BASH_PLATFORM="BASH_AVX2"
+
   #5
   - os: osx
     compiler: clang
     env: BUILD_TYPE="Check" BUILD_FAST="OFF" BASH_PLATFORM="BASH_SSE2"
-  
+
   #6
   - os: linux
     dist: xenial
     arch: arm64
     compiler: gcc
-    env: BUILD_TYPE="Release" BUILD_FAST="ON" BASH_PLATFORM="BASH_NEON" 
-  
+    env: BUILD_TYPE="Release" BUILD_FAST="ON" BASH_PLATFORM="BASH_NEON"
+
   #7
   - os: linux
     arch: s390x
     compiler: gcc
-    env: BUILD_TYPE="Release" BUILD_FAST="ON" 
-  
+    env: BUILD_TYPE="Release" BUILD_FAST="ON"
+
   #8
   - os: linux
     dist: xenial
@@ -67,17 +64,17 @@ matrix:
     env: BUILD_TYPE="Check" BUILD_FAST="ON" BASH_PLATFORM="BASH_AVX512"
     install:
     - export "SDE_VERSION_NAME=sde-external-8.63.0-2021-01-18-lin"
-    - curl --verbose 
+    - curl --verbose
         --output sde.tar.bz2
         https://software.intel.com/content/dam/develop/external/us/en/documents/downloads/${SDE_VERSION_NAME}.tar.bz2
     - tar -xf sde.tar.bz2
-    script: 
+    script:
     - echo " ===============================  The script linux 8 =============================== "
-    - mkdir build && cd build 
+    - mkdir build && cd build
     - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
     - make
     - ../${SDE_VERSION_NAME}/sde64 -- ctest --verbose
-  
+
   #9
   - os: linux
     compiler: gcc
@@ -93,9 +90,9 @@ matrix:
     - lcov -a coverage_base.info -a coverage_test.info -o coverage.info
     - bash <(curl -s https://codecov.io/bash) -f coverage.info
 
-script: 
+script:
   - echo " ===============================  The second script =============================== "
-  - mkdir build && cd build 
+  - mkdir build && cd build
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
   - git branch -a
@@ -111,7 +108,7 @@ script:
   - cd /home/travis/build/vld375/bee2/
   - ctest --verbose
 
-# - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild 
+# - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
 # Setup git for commit and push
 # git config --global user.email "travis@travis-ci.org"
 # git config --global user.name "Travis CI"
@@ -119,7 +116,7 @@ script:
 # We don’t want to run a build for a this commit in order to avoid circular builds:
 # add [ci skip] to the git commit message
 # git commit --message "Snapshot autobuild N.$TRAVIS_BUILD_NUMBER [ci skip]"
-# git push origin-master  
+# git push origin-master
 # - ls  /home/travis/build/vld375/bee2/build/src/*
 # - mkdir vld-build
 # - cd vld-build
