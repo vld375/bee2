@@ -14,6 +14,8 @@ env:
   
 matrix:
   include:
+  
+  #1
   - os: linux
     compiler: gcc
     env:
@@ -23,28 +25,43 @@ matrix:
     - COVERITY_SCAN_BUILD_COMMAND_PREPEND="cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FAST=ON"
     - COVERITY_SCAN_BUILD_COMMAND="make"
     script:
+       - echo " ===============================  The script linux 1 =============================== "
     - curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true
+  
+  #2  
   - os: linux
     compiler: gcc
     env: BUILD_TYPE="Release" BUILD_FAST="ON"  BASH_PLATFORM="BASH_64"
+  
+  #3  
   - os: osx
     compiler: clang
     env: BUILD_TYPE="Release" BUILD_FAST="OFF" BASH_PLATFORM="BASH_32"
+  
+  #4  
   - os: linux
     compiler: gcc
     env: BUILD_TYPE="MemSan" BUILD_FAST="ON" BASH_PLATFORM="BASH_AVX2" 
+  
+  #5
   - os: osx
     compiler: clang
     env: BUILD_TYPE="Check" BUILD_FAST="OFF" BASH_PLATFORM="BASH_SSE2"
+  
+  #6
   - os: linux
     dist: xenial
     arch: arm64
     compiler: gcc
     env: BUILD_TYPE="Release" BUILD_FAST="ON" BASH_PLATFORM="BASH_NEON" 
+  
+  #7
   - os: linux
     arch: s390x
     compiler: gcc
     env: BUILD_TYPE="Release" BUILD_FAST="ON" 
+  
+  #8
   - os: linux
     dist: xenial
     compiler: gcc
@@ -56,10 +73,13 @@ matrix:
         https://software.intel.com/content/dam/develop/external/us/en/documents/downloads/${SDE_VERSION_NAME}.tar.bz2
     - tar -xf sde.tar.bz2
     script: 
+    - echo " ===============================  The script linux 8 =============================== "
     - mkdir build && cd build 
     - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
     - make
     - ../${SDE_VERSION_NAME}/sde64 -- ctest --verbose
+  
+  #9
   - os: linux
     compiler: gcc
     sudo: required
@@ -67,6 +87,7 @@ matrix:
     install:
     - sudo apt-get install -y lcov
     after_success:
+    - echo " ===============================  after_success linux 9 =============================== "
     - lcov -c -i -d src -o coverage_base.info
     - test/testbee2
     - lcov -c -d src -o coverage_test.info
@@ -74,56 +95,44 @@ matrix:
     - bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 script: 
- 
+  - echo " ===============================  The second script =============================== "
   - mkdir build && cd build 
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST -DBASH_PLATFORM=$BASH_PLATFORM ..
   - make
   - git branch -a
- # - cd ..
   - git clone https://tok2:$tok2@github.com/vld375/bee2.git --branch autobuild --single-branch repo_autobuild
   - cd repo_autobuild
-
-# Copy created App into the target directory
   - cp  /home/travis/build/vld375/bee2/build/src/lib* ./autobuild
   - ls ./autobuild/*
-
-# Setup git for commit and push
-#git config --global user.email "travis@travis-ci.org"
-#git config --global user.name "Travis CI"
-#git remote add origin-master https://${AUTOBUILD_TOKEN}@github.com/user/repo > /dev/null 2>&1
   - git add ./autobuild
   - git status
   - git commit --message "vld-commit-1"
   - git push
- # - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild
   - cd ..
-  
+  - cd /home/travis/build/vld375/bee2/
+  - ctest --verbose
+
+# - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/autobuild 
+# Setup git for commit and push
+# git config --global user.email "travis@travis-ci.org"
+# git config --global user.name "Travis CI"
+# git remote add origin-master https://${AUTOBUILD_TOKEN}@github.com/user/repo > /dev/null 2>&1
 # We don’t want to run a build for a this commit in order to avoid circular builds:
 # add [ci skip] to the git commit message
-#git commit --message "Snapshot autobuild N.$TRAVIS_BUILD_NUMBER [ci skip]"
-#git push origin-master
-  
-  
-  
-  
-  
-  
- # - ls  /home/travis/build/vld375/bee2/build/src/*
-  - cd /home/travis/build/vld375/bee2/
- # - mkdir vld-build
- # - cd vld-build
- # - cp /home/travis/build/vld375/bee2/build/src/lib* .
- # - cd ..
- # - ls -R ./vld-build/*
- # - git add ./vld-build/*
- # - git commit --message "vld-commit"
- # - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/master
-  
-  
-  - ctest --verbose
-  
- 
-  #- chmod +x ../autobuild-push.sh
+# git commit --message "Snapshot autobuild N.$TRAVIS_BUILD_NUMBER [ci skip]"
+# git push origin-master  
+# - ls  /home/travis/build/vld375/bee2/build/src/*
+# - mkdir vld-build
+# - cd vld-build
+# - cp /home/travis/build/vld375/bee2/build/src/lib* .
+# - cd ..
+# - ls -R ./vld-build/*
+# - git add ./vld-build/*
+# - git commit --message "vld-commit"
+# - git push https://tok2:$tok2@github.com/vld375/bee2.git origin/master
+#- chmod +x ../autobuild-push.sh
+
 after_success:
-  - ls *
-  - ./autobuild-push.sh
+ - echo " ===============================  after_success in the end =============================== "
+- ls *
+- ./autobuild-push.sh
